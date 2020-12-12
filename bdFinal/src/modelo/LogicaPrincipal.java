@@ -2,13 +2,11 @@ package modelo;
 
 import controlador.Coordinador;
 
-public class LogicaVentana {
-	
-	private Coordinador miCoordinador;
+public class LogicaPrincipal {
 
 	public void setCoordinador(Coordinador miCoordinador) {
-		this.miCoordinador = miCoordinador;
+		
+		
 	}
 
-	
 }
