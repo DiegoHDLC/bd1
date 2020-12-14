@@ -1,10 +1,10 @@
 package principal;
 
 import controlador.Coordinador;
+import modelo.LogicaConsultas;
 import modelo.LogicaLogin;
 import modelo.LogicaPrincipal;
 import utils.Conexion;
-import utils.JavaPostgreSQLBasic;
 import vista.VentanaLogin;
 import vista.VentanaPrincipal;
 
@@ -16,24 +16,24 @@ public class Principal {
 		VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
 		LogicaLogin logicaLogin = new LogicaLogin();
 		LogicaPrincipal logicaPrincipal = new LogicaPrincipal();
-		JavaPostgreSQLBasic javaPostgreSQL = new JavaPostgreSQLBasic();
 		Conexion conexion = new Conexion();
+		LogicaConsultas logicaConsultas = new LogicaConsultas();
 		
 		
 		ventanaLogin.setCoordinador(miCoordinador);
 		ventanaPrincipal.setCoordinador(miCoordinador);
 		logicaLogin.setCoordinador(miCoordinador);
 		logicaPrincipal.setCoordinador(miCoordinador);
-		javaPostgreSQL.setCoordinador(miCoordinador);
 		conexion.setCoordinador(miCoordinador);
+		logicaConsultas.setCoordinador(miCoordinador);
 		
 		
 		miCoordinador.setVentanaLogin(ventanaLogin);
 		miCoordinador.setVentanaPrincipal(ventanaPrincipal);
 		miCoordinador.setLogicaLogin(logicaLogin);
 		miCoordinador.setLogicaPrincipal(logicaPrincipal);
-		miCoordinador.setJavaPostgreSQL(javaPostgreSQL);
 		miCoordinador.setConexion(conexion);
+		miCoordinador.setLogicaConsultas(logicaConsultas);
 		
 		ventanaLogin.setVisible(true);
 

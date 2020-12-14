@@ -3,16 +3,18 @@ package controlador;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import modelo.LogicaConsultas;
 import modelo.LogicaLogin;
 import modelo.LogicaPrincipal;
 import utils.Conexion;
-import utils.JavaPostgreSQLBasic;
 import vista.VentanaLogin;
 import vista.VentanaPrincipal;
 
@@ -22,8 +24,8 @@ public class Coordinador {
 	private VentanaPrincipal ventanaPrincipal;
 	private LogicaLogin logicaLogin;
 	private LogicaPrincipal logicaPrincipal;
-	private JavaPostgreSQLBasic javaPostgreSQL;
 	private Conexion conexion;
+	private LogicaConsultas logicaConsultas;
 	
 	public Coordinador() {
 		
@@ -59,11 +61,6 @@ public class Coordinador {
 		
 	}
 
-	public void setJavaPostgreSQL(JavaPostgreSQLBasic javaPostgreSQL) {
-		this.javaPostgreSQL = javaPostgreSQL;
-		
-	}
-
 	
 
 	public void setConexion(Conexion conexion) {
@@ -73,6 +70,26 @@ public class Coordinador {
 	
 	public void conexiónBD() {
 		conexion.connectDatabase();
+	}
+
+	public void setLogicaConsultas(LogicaConsultas logicaConsultas) {
+		this.logicaConsultas = logicaConsultas;
+		
+	}
+
+	public void cerrarConexion(Statement stmt, ResultSet rs, Connection cn) {
+		conexion.cerrarConexion(stmt,rs,cn);
+	}
+
+	public void mostrarTablaTrabajador() {
+		Connection cn = conexion.connectDatabase();
+		logicaConsultas.mostrarTablaTrabajador(cn);
+		
+	}
+
+	public void abrirTabla(JScrollPane scrollPane) {
+		logicaPrincipal.abrirTabla(scrollPane);
+		
 	}
 
 	

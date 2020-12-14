@@ -2,11 +2,13 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import controlador.Coordinador;
 
@@ -15,11 +17,17 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JScrollBar;
 
 public class VentanaPrincipal extends JDialog {
 	private Coordinador miCoordinador;
+	private static JTable table;
+	private JTable table2;
 	/**
 	 * Launch the application.
 	 */
@@ -53,6 +61,12 @@ public class VentanaPrincipal extends JDialog {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
+	
+		
+		
+		
+		//miCoordinador.abrirTabla(scrollPane);
+		
 		JPanel barra = new JPanel();
 		barra.setBackground(new Color(101, 118, 140));
 		barra.setBounds(0, 0, 710, 30);
@@ -81,11 +95,53 @@ public class VentanaPrincipal extends JDialog {
 		JButton consulta = new JButton("New button");
 		consulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				miCoordinador.conexiónBD();
-			}
+			
+					miCoordinador.mostrarTablaTrabajador();
+					
+					String [] cabezera = {"Nombre","Pais"};				
+					String [][] datos = {	
+							{"Diego","Chile"},
+							
+					};
+
+					DefaultTableModel mod = new DefaultTableModel(datos,cabezera);
+					
+					JTable tabla = new JTable(mod);
+					JScrollPane scroll = new JScrollPane(tabla);
+					scroll.setBounds(40,40,400,200);
+					panel.add(tabla);
+					
+					
+					
+							
+			}	
+					
+			
 		});
 		consulta.setBounds(142, 157, 89, 23);
 		panel.add(consulta);
+		
+		JPanel panelTabla = new JPanel();
+		panelTabla.setBounds(10, 287, 690, 202);
+		panel.add(panelTabla);
+		panelTabla.setLayout(null);
+		
+		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setBounds(0, 0, 17, 48);
+		panelTabla.add(scrollBar);
+		
+		JTable tabla = new JTable();
+		tabla.setBounds(6, 275, 471, -269);
+		
+		
+		
+		
+	}
+
+	private void crearTabla(JScrollPane scrollPane) {
+		
+		
 	}
 
 	public void setCoordinador(Coordinador miCoordinador) {
