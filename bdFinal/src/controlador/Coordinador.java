@@ -17,6 +17,7 @@ import modelo.LogicaConsultas;
 import modelo.LogicaLogin;
 import modelo.LogicaPrincipal;
 import utils.Conexion;
+import vista.DisponibilidadProducto;
 import vista.VentanaLogin;
 import vista.VentanaPrincipal;
 
@@ -28,6 +29,7 @@ public class Coordinador {
 	private LogicaPrincipal logicaPrincipal;
 	private Conexion conexion;
 	private LogicaConsultas logicaConsultas;
+	private DisponibilidadProducto ventDispProduct;
 	
 	public Coordinador() {
 		
@@ -112,6 +114,16 @@ public class Coordinador {
 	public JTable crearTablaDisponibilidadProducto(JScrollPane scrollPane, JTable tabla) {
 		tabla = logicaPrincipal.crearTablaDisponibilidadProducto(scrollPane, tabla);
 		return tabla;
+		
+	}
+
+	public void setVentDispProduct(DisponibilidadProducto ventDispProduct) {
+		this.ventDispProduct = ventDispProduct;
+		
+	}
+
+	public void abrirVentanaDispProduct() {
+		ventDispProduct.setVisible(true);
 		
 	}
 

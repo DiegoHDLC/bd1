@@ -6,6 +6,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +15,7 @@ import controlador.Coordinador;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,11 +26,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
-public class VentanaPrincipal extends JDialog {
+public class VentanaPrincipal extends JFrame {
 	private Coordinador miCoordinador;
 	public JTable tabla;
 	private JTextField txtFieldProducto;
+	
+	JMenuBar barraMenu;
+	JMenu menuProducto;
+	JMenu menuProveedores;
+	JMenu menuTrabajadores;
+	JMenuItem itemDisponibilidad;
 	//private JTable tabla;
 	/**
 	 * Launch the application.
@@ -47,6 +58,8 @@ public class VentanaPrincipal extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaPrincipal() {
+		getContentPane().setBackground(new Color(191, 205, 217));
+		getContentPane().setFont(new Font("Century Gothic", Font.PLAIN, 11));
 		initComponents();
 	}
 	
@@ -57,6 +70,9 @@ public class VentanaPrincipal extends JDialog {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		getContentPane().setLayout(null);
+		crearMenu();
+		
+		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(103, 182, 483, 260);
@@ -68,6 +84,7 @@ public class VentanaPrincipal extends JDialog {
 		txtFieldProducto.setColumns(10);
 		
 		JButton btnDisponibilidad = new JButton("Disponibilidad");
+		btnDisponibilidad.setBounds(238, 94, 114, 23);
 		btnDisponibilidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String producto;
@@ -77,7 +94,6 @@ public class VentanaPrincipal extends JDialog {
 				miCoordinador.disponibilidadProductoYValor(tabla, producto);
 			}
 		});
-		btnDisponibilidad.setBounds(238, 94, 114, 23);
 		getContentPane().add(btnDisponibilidad);
 	
 		
@@ -124,23 +140,16 @@ public class VentanaPrincipal extends JDialog {
 		Vector filas = new Vector();
 		Vector fila = new Vector();
 
-		//filas.add(fila);
 		tabla = new JTable(filas,columnas);
 		scrollPane.setViewportView(tabla);
-		//tabla = miCoordinador.definirColumnas();
-		/*tabla.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Sucursal", "RUT", "Teléfono", "Correo"
-				}
-			));
-		*/
 		
 		JButton consulta = new JButton("consulta");
 		consulta.setBounds(103, 94, 107, 23);
 		getContentPane().add(consulta);
 		consulta.setActionCommand("AGREGAR-JTABLE");
+		
+		
+		
 		
 		
 		consulta.addActionListener(new ActionListener() {
@@ -163,6 +172,28 @@ public class VentanaPrincipal extends JDialog {
 	private void crearTabla(JScrollPane scrollPane) {
 		
 		
+	}
+	
+	public void crearMenu() {
+		barraMenu = new JMenuBar();
+		barraMenu.setBorder(null);
+		barraMenu.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		barraMenu.setBounds(0, 30, 710, 22);
+		getContentPane().add(barraMenu);
+		menuProducto = new JMenu("Productos");
+		menuProducto.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuProducto.setBorder(null);
+		itemDisponibilidad = new JMenuItem("Disponibilidad");
+		itemDisponibilidad.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuProducto.add(itemDisponibilidad);
+		barraMenu.add(menuProducto);
+		
+		itemDisponibilidad.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				miCoordinador.abrirVentanaDispProduct();
+			}
+		});
 	}
 
 	public void setCoordinador(Coordinador miCoordinador) {
