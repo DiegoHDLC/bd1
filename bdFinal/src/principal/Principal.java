@@ -8,6 +8,7 @@ import utils.Conexion;
 import vista.DisponibilidadProducto;
 import vista.VentanaLogin;
 import vista.VentanaPrincipal;
+import vista.VentasRapidas;
 
 public class Principal {
 
@@ -20,6 +21,7 @@ public class Principal {
 		Conexion conexion = new Conexion();
 		LogicaConsultas logicaConsultas = new LogicaConsultas();
 		DisponibilidadProducto ventDispProduct = new DisponibilidadProducto();
+		VentasRapidas ventasRapidas = new VentasRapidas();
 		
 		
 		ventanaLogin.setCoordinador(miCoordinador);
@@ -29,6 +31,7 @@ public class Principal {
 		conexion.setCoordinador(miCoordinador);
 		logicaConsultas.setCoordinador(miCoordinador);
 		ventDispProduct.setCoordinador(miCoordinador);
+		ventasRapidas.setCoordinador(miCoordinador);
 		
 		
 		miCoordinador.setVentanaLogin(ventanaLogin);
@@ -38,6 +41,7 @@ public class Principal {
 		miCoordinador.setConexion(conexion);
 		miCoordinador.setLogicaConsultas(logicaConsultas);
 		miCoordinador.setVentDispProduct(ventDispProduct);
+		miCoordinador.setVentasRapidas(ventasRapidas);
 		
 		ventanaLogin.setVisible(true);
 

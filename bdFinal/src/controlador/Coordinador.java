@@ -20,6 +20,7 @@ import utils.Conexion;
 import vista.DisponibilidadProducto;
 import vista.VentanaLogin;
 import vista.VentanaPrincipal;
+import vista.VentasRapidas;
 
 public class Coordinador {
 	
@@ -30,6 +31,7 @@ public class Coordinador {
 	private Conexion conexion;
 	private LogicaConsultas logicaConsultas;
 	private DisponibilidadProducto ventDispProduct;
+	private VentasRapidas ventasRapidas;
 	
 	public Coordinador() {
 		
@@ -124,6 +126,16 @@ public class Coordinador {
 
 	public void abrirVentanaDispProduct() {
 		ventDispProduct.setVisible(true);
+		
+	}
+
+	public void abrirVentanaVentasRapidas() {
+		ventasRapidas.setVisible(true);
+		
+	}
+
+	public void setVentasRapidas(VentasRapidas ventasRapidas) {
+		this.ventasRapidas = ventasRapidas;
 		
 	}
 

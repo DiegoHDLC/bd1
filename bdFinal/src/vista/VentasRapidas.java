@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 import controlador.Coordinador;
 import java.awt.Color;
 
-public class DisponibilidadProducto extends JDialog {
+public class VentasRapidas extends JDialog {
 	private Coordinador miCoordinador;
 
 	/**
@@ -23,7 +23,7 @@ public class DisponibilidadProducto extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			DisponibilidadProducto dialog = new DisponibilidadProducto();
+			VentasRapidas dialog = new VentasRapidas();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -34,7 +34,7 @@ public class DisponibilidadProducto extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DisponibilidadProducto() {
+	public VentasRapidas() {
 		initComponents();
 	}
 	public void initComponents() {
@@ -42,14 +42,14 @@ public class DisponibilidadProducto extends JDialog {
 		getContentPane().setLayout(null);
 		
 		JPanel barra = new JPanel();
-		barra.setBounds(0, 0, 519, 30);
+		barra.setBounds(0, 0, 965, 30);
 		getContentPane().add(barra);
 		setUndecorated(true);
 		barra.setBackground(new Color(101, 118, 140));
-		setBounds(100, 100, 519, 396);
+		setBounds(100, 100, 965, 577);
 		setLocationRelativeTo(null);
 		JLabel btnCerrar = new JLabel("");
-		btnCerrar.setBounds(489, 0, 30, 30);
+		btnCerrar.setBounds(935, 0, 30, 30);
 		btnCerrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {

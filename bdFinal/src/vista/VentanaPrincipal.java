@@ -39,10 +39,18 @@ public class VentanaPrincipal extends JFrame {
 	JMenu menuProducto;
 	JMenu menuProveedores;
 	JMenu menuTrabajadores;
+	JMenu menuVentas;
 	JMenuItem itemDisponibilidad;
+	JMenuItem itemVentasRapidas;
 	JMenuItem itemIngresarTrabajador;
 	JMenuItem itemEliminarTrabajador;
 	JMenuItem itemActualizarTrabajador;
+	JMenuItem itemIngresarSucursal;
+	JMenuItem itemEliminarSucursal;
+	JMenuItem itemActualizarSucursal;
+	JMenuItem itemIngresarEmpresa;
+	JMenuItem itemEliminarEmpresa;
+	JMenuItem itemActualizarEmpresa;
 	JMenu menuSucursal;
 	JMenu menuProveedor;
 	JMenu menuEmpresas;
@@ -137,6 +145,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 		
+		@SuppressWarnings("rawtypes")
 		Vector columnas = new Vector();
 		columnas.add("Sucursal");
 		columnas.add("RUT");
@@ -197,27 +206,55 @@ public class VentanaPrincipal extends JFrame {
 		menuProveedor = agregarMenu(menuProveedor, "Proveedores");
 		//EMPRESAS
 		menuEmpresas = agregarMenu(menuEmpresas, "Empresas");
+		//VENTAS
+		menuVentas = agregarMenu(menuVentas, "Ventas");
 		//ITEMS TRABAJADOR
-		itemDisponibilidad = agregarItem(itemDisponibilidad,"Disponibilidad");
 		itemIngresarTrabajador = agregarItem(itemIngresarTrabajador,"Ingresar Trabajador");
 		itemActualizarTrabajador = agregarItem(itemActualizarTrabajador,"Actualizar Datos");
 		itemEliminarTrabajador = agregarItem(itemEliminarTrabajador,"Eliminar Trabajador");
+		//ITEMS PRODUCTOS
+		itemDisponibilidad = agregarItem(itemDisponibilidad,"Disponibilidad");
+		//ITEMS SUCURSAL
+		itemIngresarSucursal = agregarItem(itemIngresarSucursal,"Ingresar Sucursal");
+		itemActualizarSucursal = agregarItem(itemActualizarSucursal,"Actualizar Sucursal");
+		itemEliminarSucursal = agregarItem(itemEliminarSucursal,"Eliminar Sucursal");
+		//ITEMS EMPRESAS
+		itemIngresarEmpresa = agregarItem(itemIngresarEmpresa,"Ingresar Empresa");
+		itemActualizarEmpresa = agregarItem(itemActualizarEmpresa,"Actualizar Empresa");
+		itemEliminarEmpresa = agregarItem(itemEliminarEmpresa,"Eliminar Empresa");
+		//ITEMS VENTAS
+		itemVentasRapidas = agregarItem(itemVentasRapidas,"Ventas Rápidas");
+		
 		menuProducto.add(itemDisponibilidad);
 		menuTrabajadores.add(itemIngresarTrabajador);
 		menuTrabajadores.add(itemActualizarTrabajador);
 		menuTrabajadores.add(itemEliminarTrabajador);
-		
+		menuSucursal.add(itemIngresarSucursal);
+		menuSucursal.add(itemActualizarSucursal);
+		menuSucursal.add(itemEliminarSucursal);
+		menuEmpresas.add(itemIngresarEmpresa);
+		menuEmpresas.add(itemActualizarEmpresa);
+		menuEmpresas.add(itemEliminarEmpresa);
+		menuVentas.add(itemVentasRapidas);
 		barraMenu.add(menuProducto);
 		barraMenu.add(menuTrabajadores);
 		barraMenu.add(menuProveedor);
 		barraMenu.add(menuSucursal);
 		barraMenu.add(menuEmpresas);
+		barraMenu.add(menuVentas);
 		
 		
 		itemDisponibilidad.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				miCoordinador.abrirVentanaDispProduct();
+			}
+		});
+		
+		itemVentasRapidas.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				miCoordinador.abrirVentanaVentasRapidas();
 			}
 		});
 	}
