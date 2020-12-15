@@ -5,10 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import modelo.LogicaConsultas;
@@ -81,14 +83,35 @@ public class Coordinador {
 		conexion.cerrarConexion(stmt,rs,cn);
 	}
 
-	public void mostrarTablaTrabajador() {
+	public void mostrarTablaTrabajador(JTable tabla) {
 		Connection cn = conexion.connectDatabase();
-		logicaConsultas.mostrarTablaTrabajador(cn);
-		
+		//tabla = logicaPrincipal.definirColumnas(tabla);
+		logicaConsultas.mostrarTablaTrabajador(cn, tabla);
 	}
 
 	public void abrirTabla(JScrollPane scrollPane) {
 		logicaPrincipal.abrirTabla(scrollPane);
+		
+	}
+
+	public void agregarDatosATabla(String nombre, String rut, String teléfono, String correo, JTable tabla) {
+		logicaPrincipal.agregarDatosAtabla(nombre,rut,teléfono,correo,tabla);
+		
+	}
+	public void disponibilidadProductoYValor(JTable tabla, String producto) {
+		Connection cn = conexion.connectDatabase();
+		logicaConsultas.disponibilidadProductoYValor(cn, tabla, producto);
+		
+	}
+
+	public void agregarDatosATablaDisponibilidadPYV(String código, String descripción, String stock, String precioActual, JTable tabla) {
+		logicaPrincipal.agregarDatosATablaDisponibilidadPYV(código,descripción,stock,precioActual, tabla);
+		
+	}
+
+	public JTable crearTablaDisponibilidadProducto(JScrollPane scrollPane, JTable tabla) {
+		tabla = logicaPrincipal.crearTablaDisponibilidadProducto(scrollPane, tabla);
+		return tabla;
 		
 	}
 

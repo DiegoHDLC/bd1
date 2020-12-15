@@ -23,11 +23,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
+import javax.swing.JTextField;
 
 public class VentanaPrincipal extends JDialog {
 	private Coordinador miCoordinador;
-	private static JTable table;
-	private JTable table2;
+	public JTable tabla;
+	private JTextField txtFieldProducto;
+	//private JTable tabla;
 	/**
 	 * Launch the application.
 	 */
@@ -51,16 +53,32 @@ public class VentanaPrincipal extends JDialog {
 	public void initComponents() {
 		
 		setUndecorated(true);
-		setBounds(100, 100, 710, 500);
+		setBounds(100, 100, 710, 453);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
+		getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(191, 205, 217));
-		panel.setBounds(0, 0, 710, 500);
-		getContentPane().add(panel);
-		panel.setLayout(null);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(103, 182, 483, 260);
+		getContentPane().add(scrollPane);
 		
+		txtFieldProducto = new JTextField();
+		txtFieldProducto.setBounds(375, 95, 146, 20);
+		getContentPane().add(txtFieldProducto);
+		txtFieldProducto.setColumns(10);
+		
+		JButton btnDisponibilidad = new JButton("Disponibilidad");
+		btnDisponibilidad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String producto;
+				tabla = miCoordinador.crearTablaDisponibilidadProducto(scrollPane,tabla);
+				
+				producto = txtFieldProducto.getText();
+				miCoordinador.disponibilidadProductoYValor(tabla, producto);
+			}
+		});
+		btnDisponibilidad.setBounds(238, 94, 114, 23);
+		getContentPane().add(btnDisponibilidad);
 	
 		
 		
@@ -68,12 +86,14 @@ public class VentanaPrincipal extends JDialog {
 		//miCoordinador.abrirTabla(scrollPane);
 		
 		JPanel barra = new JPanel();
-		barra.setBackground(new Color(101, 118, 140));
 		barra.setBounds(0, 0, 710, 30);
-		panel.add(barra);
-		barra.setLayout(null);
+		getContentPane().add(barra);
+		barra.setBackground(new Color(101, 118, 140));
+		
+		
 		
 		JLabel btnCerrar = new JLabel("");
+		btnCerrar.setBounds(680, 0, 30, 30);
 		btnCerrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -88,53 +108,54 @@ public class VentanaPrincipal extends JDialog {
 				dispose();
 			}
 		});
+		barra.setLayout(null);
 		btnCerrar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/imagenes/cerrarColorPrincipal_30px.png")));
-		btnCerrar.setBounds(680, 0, 30, 30);
 		barra.add(btnCerrar);
 		
-		JButton consulta = new JButton("New button");
+		
+		
+		Vector columnas = new Vector();
+		columnas.add("Sucursal");
+		columnas.add("RUT");
+		columnas.add("Teléfono");
+		columnas.add("Correo");
+		
+		
+		Vector filas = new Vector();
+		Vector fila = new Vector();
+
+		//filas.add(fila);
+		tabla = new JTable(filas,columnas);
+		scrollPane.setViewportView(tabla);
+		//tabla = miCoordinador.definirColumnas();
+		/*tabla.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Sucursal", "RUT", "Teléfono", "Correo"
+				}
+			));
+		*/
+		
+		JButton consulta = new JButton("consulta");
+		consulta.setBounds(103, 94, 107, 23);
+		getContentPane().add(consulta);
+		consulta.setActionCommand("AGREGAR-JTABLE");
+		
+		
 		consulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
-					miCoordinador.mostrarTablaTrabajador();
-					
-					String [] cabezera = {"Nombre","Pais"};				
-					String [][] datos = {	
-							{"Diego","Chile"},
-							
-					};
-
-					DefaultTableModel mod = new DefaultTableModel(datos,cabezera);
-					
-					JTable tabla = new JTable(mod);
-					JScrollPane scroll = new JScrollPane(tabla);
-					scroll.setBounds(40,40,400,200);
-					panel.add(tabla);
-					
-					
-					
-							
-			}	
-					
-			
+				if(arg0.getActionCommand().equalsIgnoreCase("AGREGAR-JTABLE")) {
+					miCoordinador.mostrarTablaTrabajador(tabla);	
+				}	
+			}
 		});
-		consulta.setBounds(142, 157, 89, 23);
-		panel.add(consulta);
 		
-		JPanel panelTabla = new JPanel();
-		panelTabla.setBounds(10, 287, 690, 202);
-		panel.add(panelTabla);
-		panelTabla.setLayout(null);
+	
 		
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(0, 0, 17, 48);
-		panelTabla.add(scrollBar);
 		
-		JTable tabla = new JTable();
-		tabla.setBounds(6, 275, 471, -269);
-		
-		
+	
 		
 		
 	}
