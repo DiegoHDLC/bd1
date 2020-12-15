@@ -40,9 +40,13 @@ public class VentanaPrincipal extends JFrame {
 	JMenu menuProveedores;
 	JMenu menuTrabajadores;
 	JMenuItem itemDisponibilidad;
+	JMenuItem itemIngresarTrabajador;
+	JMenuItem itemEliminarTrabajador;
+	JMenuItem itemActualizarTrabajador;
 	JMenu menuSucursal;
 	JMenu menuProveedor;
 	JMenu menuEmpresas;
+	
 	//private JTable tabla;
 	/**
 	 * Launch the application.
@@ -184,29 +188,25 @@ public class VentanaPrincipal extends JFrame {
 		barraMenu.setBounds(0, 30, 710, 22);
 		getContentPane().add(barraMenu);
 		//PRODUCTOS
-		menuProducto = new JMenu("Productos");
-		menuProducto.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		menuProducto.setBorder(null);
+		menuProducto = agregarMenu(menuProducto, "Productos");
 		//TRABAJADOR
-		menuTrabajadores = new JMenu("Trabajador");
-		menuTrabajadores.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		menuTrabajadores.setBorder(null);
+		menuTrabajadores = agregarMenu(menuTrabajadores, "Trabajadores");
 		//SUCURSAL
-		menuSucursal = new JMenu("Sucursal");
-		menuSucursal.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		menuSucursal.setBorder(null);
+		menuSucursal = agregarMenu(menuSucursal, "Sucursal");
 		//PROVEEDORES
-		menuProveedor = new JMenu("Proveedores");
-		menuProveedor.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		menuProveedor.setBorder(null);
+		menuProveedor = agregarMenu(menuProveedor, "Proveedores");
 		//EMPRESAS
-		menuEmpresas = new JMenu("Empresas");
-		menuEmpresas.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		menuEmpresas.setBorder(null);
-		//ITEMS
-		itemDisponibilidad = new JMenuItem("Disponibilidad");
-		itemDisponibilidad.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuEmpresas = agregarMenu(menuEmpresas, "Empresas");
+		//ITEMS TRABAJADOR
+		itemDisponibilidad = agregarItem(itemDisponibilidad,"Disponibilidad");
+		itemIngresarTrabajador = agregarItem(itemIngresarTrabajador,"Ingresar Trabajador");
+		itemActualizarTrabajador = agregarItem(itemActualizarTrabajador,"Actualizar Datos");
+		itemEliminarTrabajador = agregarItem(itemEliminarTrabajador,"Eliminar Trabajador");
 		menuProducto.add(itemDisponibilidad);
+		menuTrabajadores.add(itemIngresarTrabajador);
+		menuTrabajadores.add(itemActualizarTrabajador);
+		menuTrabajadores.add(itemEliminarTrabajador);
+		
 		barraMenu.add(menuProducto);
 		barraMenu.add(menuTrabajadores);
 		barraMenu.add(menuProveedor);
@@ -220,6 +220,21 @@ public class VentanaPrincipal extends JFrame {
 				miCoordinador.abrirVentanaDispProduct();
 			}
 		});
+	}
+
+	private JMenu agregarMenu(JMenu menu, String titulo) {
+		menu = new JMenu(titulo);
+		menu.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menu.setBorder(null);
+		return menu;
+		
+	}
+
+	private JMenuItem agregarItem(JMenuItem item, String titulo) {
+		item = new JMenuItem(titulo);
+		item.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		return item;
+		
 	}
 
 	public void setCoordinador(Coordinador miCoordinador) {
