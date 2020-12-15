@@ -18,6 +18,8 @@ import modelo.LogicaLogin;
 import modelo.LogicaPrincipal;
 import utils.Conexion;
 import vista.DisponibilidadProducto;
+import vista.GestionarProductos;
+import vista.GestionarTrabajador;
 import vista.VentanaLogin;
 import vista.VentanaPrincipal;
 import vista.VentasRapidas;
@@ -32,6 +34,8 @@ public class Coordinador {
 	private LogicaConsultas logicaConsultas;
 	private DisponibilidadProducto ventDispProduct;
 	private VentasRapidas ventasRapidas;
+	private GestionarTrabajador gestionarTrabajador;
+	private GestionarProductos gestionarProductos;
 	
 	public Coordinador() {
 		
@@ -136,6 +140,26 @@ public class Coordinador {
 
 	public void setVentasRapidas(VentasRapidas ventasRapidas) {
 		this.ventasRapidas = ventasRapidas;
+		
+	}
+
+	public void abrirVentanaGestionarTrabajador() {
+		gestionarTrabajador.setVisible(true);
+		
+	}
+
+	public void setGestionarTrabajador(GestionarTrabajador gestionarTrabajador) {
+		this.gestionarTrabajador = gestionarTrabajador;
+		
+	}
+
+	public void setGestionarProductos(GestionarProductos gestionarProductos) {
+		this.gestionarProductos = gestionarProductos;
+		
+	}
+
+	public void abrirVentanaGestionarProducto() {
+		gestionarProductos.setVisible(true);
 		
 	}
 

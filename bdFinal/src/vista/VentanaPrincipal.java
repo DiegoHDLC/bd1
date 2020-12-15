@@ -51,6 +51,8 @@ public class VentanaPrincipal extends JFrame {
 	JMenuItem itemIngresarEmpresa;
 	JMenuItem itemEliminarEmpresa;
 	JMenuItem itemActualizarEmpresa;
+	JMenuItem itemGestionarTrabajador;
+	JMenuItem itemGestionarProductos;
 	JMenu menuSucursal;
 	JMenu menuProveedor;
 	JMenu menuEmpresas;
@@ -212,8 +214,10 @@ public class VentanaPrincipal extends JFrame {
 		itemIngresarTrabajador = agregarItem(itemIngresarTrabajador,"Ingresar Trabajador");
 		itemActualizarTrabajador = agregarItem(itemActualizarTrabajador,"Actualizar Datos");
 		itemEliminarTrabajador = agregarItem(itemEliminarTrabajador,"Eliminar Trabajador");
+		itemGestionarTrabajador = agregarItem(itemGestionarTrabajador,"Gestionar");
 		//ITEMS PRODUCTOS
 		itemDisponibilidad = agregarItem(itemDisponibilidad,"Disponibilidad");
+		itemGestionarProductos = agregarItem(itemGestionarProductos, "Gestionar");
 		//ITEMS SUCURSAL
 		itemIngresarSucursal = agregarItem(itemIngresarSucursal,"Ingresar Sucursal");
 		itemActualizarSucursal = agregarItem(itemActualizarSucursal,"Actualizar Sucursal");
@@ -229,6 +233,7 @@ public class VentanaPrincipal extends JFrame {
 		menuTrabajadores.add(itemIngresarTrabajador);
 		menuTrabajadores.add(itemActualizarTrabajador);
 		menuTrabajadores.add(itemEliminarTrabajador);
+		menuTrabajadores.add(itemGestionarTrabajador);
 		menuSucursal.add(itemIngresarSucursal);
 		menuSucursal.add(itemActualizarSucursal);
 		menuSucursal.add(itemEliminarSucursal);
@@ -236,6 +241,7 @@ public class VentanaPrincipal extends JFrame {
 		menuEmpresas.add(itemActualizarEmpresa);
 		menuEmpresas.add(itemEliminarEmpresa);
 		menuVentas.add(itemVentasRapidas);
+		menuProducto.add(itemGestionarProductos);
 		barraMenu.add(menuProducto);
 		barraMenu.add(menuTrabajadores);
 		barraMenu.add(menuProveedor);
@@ -255,6 +261,20 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				miCoordinador.abrirVentanaVentasRapidas();
+			}
+		});
+		
+		itemGestionarTrabajador.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				miCoordinador.abrirVentanaGestionarTrabajador();
+			}
+		});
+		
+		itemGestionarProductos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				miCoordinador.abrirVentanaGestionarProducto();
 			}
 		});
 	}
