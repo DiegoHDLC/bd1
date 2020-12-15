@@ -40,6 +40,9 @@ public class VentanaPrincipal extends JFrame {
 	JMenu menuProveedores;
 	JMenu menuTrabajadores;
 	JMenuItem itemDisponibilidad;
+	JMenu menuSucursal;
+	JMenu menuProveedor;
+	JMenu menuEmpresas;
 	//private JTable tabla;
 	/**
 	 * Launch the application.
@@ -180,13 +183,36 @@ public class VentanaPrincipal extends JFrame {
 		barraMenu.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		barraMenu.setBounds(0, 30, 710, 22);
 		getContentPane().add(barraMenu);
+		//PRODUCTOS
 		menuProducto = new JMenu("Productos");
 		menuProducto.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		menuProducto.setBorder(null);
+		//TRABAJADOR
+		menuTrabajadores = new JMenu("Trabajador");
+		menuTrabajadores.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuTrabajadores.setBorder(null);
+		//SUCURSAL
+		menuSucursal = new JMenu("Sucursal");
+		menuSucursal.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuSucursal.setBorder(null);
+		//PROVEEDORES
+		menuProveedor = new JMenu("Proveedores");
+		menuProveedor.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuProveedor.setBorder(null);
+		//EMPRESAS
+		menuEmpresas = new JMenu("Empresas");
+		menuEmpresas.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuEmpresas.setBorder(null);
+		//ITEMS
 		itemDisponibilidad = new JMenuItem("Disponibilidad");
 		itemDisponibilidad.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		menuProducto.add(itemDisponibilidad);
 		barraMenu.add(menuProducto);
+		barraMenu.add(menuTrabajadores);
+		barraMenu.add(menuProveedor);
+		barraMenu.add(menuSucursal);
+		barraMenu.add(menuEmpresas);
+		
 		
 		itemDisponibilidad.addActionListener(new ActionListener() {
 			@Override
