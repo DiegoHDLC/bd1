@@ -29,11 +29,10 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
 
 public class VentanaPrincipal extends JFrame {
 	private Coordinador miCoordinador;
-	public JTable tabla;
-	private JTextField txtFieldProducto;
 	
 	JMenuBar barraMenu;
 	JMenu menuProducto;
@@ -48,11 +47,12 @@ public class VentanaPrincipal extends JFrame {
 	JMenuItem itemIngresarSucursal;
 	JMenuItem itemEliminarSucursal;
 	JMenuItem itemActualizarSucursal;
-	JMenuItem itemIngresarEmpresa;
+	JMenuItem itemDeudores;
 	JMenuItem itemEliminarEmpresa;
 	JMenuItem itemActualizarEmpresa;
 	JMenuItem itemGestionarTrabajador;
 	JMenuItem itemGestionarProductos;
+	JMenuItem itemGestionarEmpresa;
 	JMenu menuSucursal;
 	JMenu menuProveedor;
 	JMenu menuEmpresas;
@@ -88,30 +88,6 @@ public class VentanaPrincipal extends JFrame {
 		getContentPane().setLayout(null);
 		getContentPane().setLayout(null);
 		crearMenu();
-		
-		
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(103, 182, 483, 260);
-		getContentPane().add(scrollPane);
-		
-		txtFieldProducto = new JTextField();
-		txtFieldProducto.setBounds(375, 95, 146, 20);
-		getContentPane().add(txtFieldProducto);
-		txtFieldProducto.setColumns(10);
-		
-		JButton btnDisponibilidad = new JButton("Disponibilidad");
-		btnDisponibilidad.setBounds(238, 94, 114, 23);
-		btnDisponibilidad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String producto;
-				tabla = miCoordinador.crearTablaDisponibilidadProducto(scrollPane,tabla);
-				
-				producto = txtFieldProducto.getText();
-				miCoordinador.disponibilidadProductoYValor(tabla, producto);
-			}
-		});
-		getContentPane().add(btnDisponibilidad);
 	
 		
 		
@@ -145,6 +121,12 @@ public class VentanaPrincipal extends JFrame {
 		btnCerrar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/imagenes/cerrarColorPrincipal_30px.png")));
 		barra.add(btnCerrar);
 		
+		JLabel tienda = new JLabel("Software Tienda de Repuestos");
+		tienda.setHorizontalAlignment(SwingConstants.CENTER);
+		tienda.setFont(new Font("Century Gothic", Font.PLAIN, 47));
+		tienda.setBounds(0, 199, 710, 59);
+		getContentPane().add(tienda);
+		
 		
 		
 		@SuppressWarnings("rawtypes")
@@ -157,37 +139,6 @@ public class VentanaPrincipal extends JFrame {
 		
 		Vector filas = new Vector();
 		Vector fila = new Vector();
-
-		tabla = new JTable(filas,columnas);
-		scrollPane.setViewportView(tabla);
-		
-		JButton consulta = new JButton("consulta");
-		consulta.setBounds(103, 94, 107, 23);
-		getContentPane().add(consulta);
-		consulta.setActionCommand("AGREGAR-JTABLE");
-		
-		
-		
-		
-		
-		consulta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(arg0.getActionCommand().equalsIgnoreCase("AGREGAR-JTABLE")) {
-					miCoordinador.mostrarTablaTrabajador(tabla);	
-				}	
-			}
-		});
-		
-	
-		
-		
-		
-	
-		
-		
-	}
-
-	private void crearTabla(JScrollPane scrollPane) {
 		
 		
 	}
@@ -223,9 +174,10 @@ public class VentanaPrincipal extends JFrame {
 		itemActualizarSucursal = agregarItem(itemActualizarSucursal,"Actualizar Sucursal");
 		itemEliminarSucursal = agregarItem(itemEliminarSucursal,"Eliminar Sucursal");
 		//ITEMS EMPRESAS
-		itemIngresarEmpresa = agregarItem(itemIngresarEmpresa,"Ingresar Empresa");
+		itemDeudores = agregarItem(itemDeudores,"Deudores");
 		itemActualizarEmpresa = agregarItem(itemActualizarEmpresa,"Actualizar Empresa");
 		itemEliminarEmpresa = agregarItem(itemEliminarEmpresa,"Eliminar Empresa");
+		itemGestionarEmpresa = agregarItem(itemGestionarEmpresa,"Gestionar");
 		//ITEMS VENTAS
 		itemVentasRapidas = agregarItem(itemVentasRapidas,"Ventas Rápidas");
 		
@@ -237,9 +189,10 @@ public class VentanaPrincipal extends JFrame {
 		menuSucursal.add(itemIngresarSucursal);
 		menuSucursal.add(itemActualizarSucursal);
 		menuSucursal.add(itemEliminarSucursal);
-		menuEmpresas.add(itemIngresarEmpresa);
+		menuEmpresas.add(itemDeudores);
 		menuEmpresas.add(itemActualizarEmpresa);
 		menuEmpresas.add(itemEliminarEmpresa);
+		menuEmpresas.add(itemGestionarEmpresa);
 		menuVentas.add(itemVentasRapidas);
 		menuProducto.add(itemGestionarProductos);
 		barraMenu.add(menuProducto);
@@ -275,6 +228,19 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				miCoordinador.abrirVentanaGestionarProducto();
+			}
+		});
+		itemGestionarEmpresa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				miCoordinador.abrirVentanaGestionarEmpresa();
+			}
+		});
+		
+		itemDeudores.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				miCoordinador.abrirVentanaDeudores();
 			}
 		});
 	}

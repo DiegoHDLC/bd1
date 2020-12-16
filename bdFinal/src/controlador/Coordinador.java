@@ -17,7 +17,9 @@ import modelo.LogicaConsultas;
 import modelo.LogicaLogin;
 import modelo.LogicaPrincipal;
 import utils.Conexion;
+import vista.Deudores;
 import vista.DisponibilidadProducto;
+import vista.GestionarEmpresa;
 import vista.GestionarProductos;
 import vista.GestionarTrabajador;
 import vista.VentanaLogin;
@@ -36,6 +38,8 @@ public class Coordinador {
 	private VentasRapidas ventasRapidas;
 	private GestionarTrabajador gestionarTrabajador;
 	private GestionarProductos gestionarProductos;
+	private GestionarEmpresa gestionarEmpresa;
+	private Deudores deudores;
 	
 	public Coordinador() {
 		
@@ -162,6 +166,64 @@ public class Coordinador {
 		gestionarProductos.setVisible(true);
 		
 	}
+
+	public void setGestionarEmpresa(GestionarEmpresa gestionarEmpresa) {
+		this.gestionarEmpresa = new GestionarEmpresa();
+		
+	}
+
+	public void abrirVentanaGestionarEmpresa() {
+		gestionarEmpresa.setVisible(true);
+		
+	}
+
+	public void setDeudores(Deudores deudores) {
+		this.deudores = deudores;
+		
+	}
+	
+	public void abrirVentanaDeudores() {
+		deudores.setVisible(true);
+	}
+
+	public void buscarDeudores(JTable tabla) {
+		Connection cn = conexion.connectDatabase();
+		logicaConsultas.buscarDeudores(cn,tabla);
+	}
+
+	public void agregarDatosATabla(String estado, String doc_fac, String monto_total, String correo_emp,
+			String teléfono_emp, String rut_trabajador, String nombre, JTable tabla) {
+		logicaPrincipal.agregarDatosATabla(estado, doc_fac, monto_total, correo_emp, teléfono_emp, rut_trabajador, nombre, tabla);
+		
+	}
+
+	public JTable crearTablaDeudores(JScrollPane scrollPane, JTable tabla) {
+		tabla = logicaPrincipal.crearTablaDeudores(scrollPane, tabla);
+		return tabla;
+	}
+
+
+	public void buscarProducto(String código, JTextField textCódigo, JTextField textCódBarra, JTextField textDecripción,
+			JTextField textFamilia, JTextField textPrecioActual, JTextField textStock) {
+		Connection cn = conexion.connectDatabase();
+		logicaConsultas.buscarProducto(cn, código, textCódBarra, textDecripción, textFamilia, textPrecioActual, textStock);
+	}
+
+	public void agregarDatosProductoBuscado(String código_barra, String stock, String descripción, String precio_actual,
+			String familia, JTextField textCódBarra, JTextField textDescripción, JTextField textFamilia,
+			JTextField textPrecioActual, JTextField textStock) {
+		logicaPrincipal.rellenarCamposProducto(código_barra, stock, descripción, precio_actual, familia, textCódBarra, textDescripción, textFamilia, textPrecioActual, textStock);
+		
+	}
+
+	public void agregarProducto(JTextField textCódigo, JTextField textCódBarra, JTextField textDescripción, JTextField textFamilia, JTextField textPrecioActual, JTextField textStock) {
+		Connection cn = conexion.connectDatabase();
+		logicaConsultas.agregarProducto(cn, textCódigo, textCódBarra, textDescripción, textFamilia, textPrecioActual, textStock);
+		
+	}
+
+
+
 
 	
 	

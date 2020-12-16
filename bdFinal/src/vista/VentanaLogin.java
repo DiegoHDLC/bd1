@@ -110,20 +110,20 @@ public class VentanaLogin extends JFrame {
 		JLabel nombre = new JLabel("");
 		sl_panelNombre.putConstraint(SpringLayout.NORTH, nombre, 34, SpringLayout.NORTH, panelNombre);
 		sl_panelNombre.putConstraint(SpringLayout.WEST, nombre, 29, SpringLayout.WEST, panelNombre);
-		sl_panelNombre.putConstraint(SpringLayout.SOUTH, nombre, -152, SpringLayout.SOUTH, panelNombre);
 		sl_panelNombre.putConstraint(SpringLayout.EAST, nombre, -35, SpringLayout.EAST, panelNombre);
 		nombre.setHorizontalTextPosition(SwingConstants.CENTER);
-		nombre.setText("<html>Nombre <p>del<p> Proyecto<html>");
+		nombre.setText("<html>Software <p>Tienda <p>de <p>Repuestos<html>");
 		nombre.setForeground(new Color(255, 255, 224));
 		nombre.setHorizontalAlignment(SwingConstants.CENTER);
-		nombre.setFont(new Font("Century Gothic", Font.PLAIN, 33));
+		nombre.setFont(new Font("Century Gothic", Font.PLAIN, 27));
 		panelNombre.add(nombre);
 		
 		JLabel lblNewLabel = new JLabel("");
-		sl_panelNombre.putConstraint(SpringLayout.NORTH, lblNewLabel, 6, SpringLayout.SOUTH, nombre);
-		sl_panelNombre.putConstraint(SpringLayout.WEST, lblNewLabel, 51, SpringLayout.WEST, panelNombre);
-		sl_panelNombre.putConstraint(SpringLayout.SOUTH, lblNewLabel, -33, SpringLayout.SOUTH, panelNombre);
-		sl_panelNombre.putConstraint(SpringLayout.EAST, lblNewLabel, 169, SpringLayout.WEST, panelNombre);
+		sl_panelNombre.putConstraint(SpringLayout.SOUTH, nombre, -6, SpringLayout.NORTH, lblNewLabel);
+		sl_panelNombre.putConstraint(SpringLayout.NORTH, lblNewLabel, 185, SpringLayout.NORTH, panelNombre);
+		sl_panelNombre.putConstraint(SpringLayout.WEST, lblNewLabel, 50, SpringLayout.WEST, panelNombre);
+		sl_panelNombre.putConstraint(SpringLayout.SOUTH, lblNewLabel, -10, SpringLayout.SOUTH, panelNombre);
+		sl_panelNombre.putConstraint(SpringLayout.EAST, lblNewLabel, 168, SpringLayout.WEST, panelNombre);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(VentanaLogin.class.getResource("/imagenes/logoPrincipal_125px.png")));
 		panelNombre.add(lblNewLabel);

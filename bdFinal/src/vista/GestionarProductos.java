@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,15 +18,18 @@ import controlador.Coordinador;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GestionarProductos extends JDialog {
 	private Coordinador miCoordinador;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField textCódigo;
+	private JTextField textCódBarra;
+	private JTextField textDecripción;
+	private JTextField textFamilia;
+	private JTextField textPrecioActual;
+	private JTextField textStock;
+	int xx,xy;
 
 	/**
 	 * Launch the application.
@@ -46,6 +51,27 @@ public class GestionarProductos extends JDialog {
 		initComponents();
 	}
 	public void initComponents() {
+		
+		addMouseMotionListener((MouseMotionListener) new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent arg0) {
+                int x = arg0.getXOnScreen();
+                int y = arg0.getYOnScreen();
+
+                setLocation(x-xx, y-xy);
+            }
+        });
+
+        addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                xx = e.getX();
+                xy = e.getY();
+            }
+        });
+
 		getContentPane().setBackground(new Color(191, 205, 217));
 		getContentPane().setLayout(null);
 		
@@ -54,7 +80,7 @@ public class GestionarProductos extends JDialog {
 		getContentPane().add(barra);
 		setUndecorated(true);
 		barra.setBackground(new Color(101, 118, 140));
-		setBounds(100, 100, 519, 396);
+		setBounds(100, 100, 519, 272);
 		setLocationRelativeTo(null);
 		JLabel btnCerrar = new JLabel("");
 		btnCerrar.setBounds(489, 0, 30, 30);
@@ -101,60 +127,85 @@ public class GestionarProductos extends JDialog {
 		lblPrecioActual.setBounds(47, 182, 81, 14);
 		getContentPane().add(lblPrecioActual);
 		
-		textField = new JTextField();
-		textField.setBounds(154, 55, 163, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		textCódigo = new JTextField();
+		textCódigo.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		textCódigo.setBounds(154, 55, 163, 20);
+		getContentPane().add(textCódigo);
+		textCódigo.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(154, 87, 163, 20);
-		getContentPane().add(textField_1);
+		textCódBarra = new JTextField();
+		textCódBarra.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		textCódBarra.setColumns(10);
+		textCódBarra.setBounds(154, 87, 163, 20);
+		getContentPane().add(textCódBarra);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(154, 118, 163, 20);
-		getContentPane().add(textField_2);
+		textDecripción = new JTextField();
+		textDecripción.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		textDecripción.setColumns(10);
+		textDecripción.setBounds(154, 118, 323, 20);
+		getContentPane().add(textDecripción);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(154, 149, 163, 20);
-		getContentPane().add(textField_3);
+		textFamilia = new JTextField();
+		textFamilia.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		textFamilia.setColumns(10);
+		textFamilia.setBounds(154, 149, 323, 20);
+		getContentPane().add(textFamilia);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(154, 180, 163, 20);
-		getContentPane().add(textField_4);
+		textPrecioActual = new JTextField();
+		textPrecioActual.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		textPrecioActual.setColumns(10);
+		textPrecioActual.setBounds(154, 180, 323, 20);
+		getContentPane().add(textPrecioActual);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(47, 220, 89, 23);
-		getContentPane().add(btnNewButton);
+		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				miCoordinador.agregarProducto(textCódigo, textCódBarra, textDecripción, textFamilia, textPrecioActual, textStock);
+			}
+		});
+		btnAgregar.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		btnAgregar.setBounds(23, 220, 100, 23);
+		getContentPane().add(btnAgregar);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(154, 220, 89, 23);
-		getContentPane().add(btnNewButton_1);
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		btnModificar.setBounds(146, 220, 100, 23);
+		getContentPane().add(btnModificar);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		btnNewButton_2.setBounds(304, 220, 89, 23);
-		getContentPane().add(btnNewButton_2);
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		btnGuardar.setBounds(269, 220, 100, 23);
+		getContentPane().add(btnGuardar);
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(420, 54, 89, 23);
-		getContentPane().add(btnBuscar);
+		
 		
 		JLabel lblStock = new JLabel("Stock");
 		lblStock.setFont(new Font("Century Gothic", Font.PLAIN, 11));
-		lblStock.setBounds(353, 89, 81, 14);
+		lblStock.setBounds(327, 89, 81, 14);
 		getContentPane().add(lblStock);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(420, 87, 89, 20);
-		getContentPane().add(textField_5);
+		textStock = new JTextField();
+		textStock.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		textStock.setColumns(10);
+		textStock.setBounds(373, 87, 104, 20);
+		getContentPane().add(textStock);
 		
-		JButton btnNewButton_2_1 = new JButton("New button");
-		btnNewButton_2_1.setBounds(420, 220, 89, 23);
-		getContentPane().add(btnNewButton_2_1);
+		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		btnBorrar.setBounds(392, 220, 104, 23);
+		getContentPane().add(btnBorrar);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String código = textCódigo.getText();
+
+				miCoordinador.buscarProducto(código, textCódigo, textCódBarra, textDecripción, textFamilia, textPrecioActual, textStock);
+			}
+		});
+		btnBuscar.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		btnBuscar.setBounds(373, 54, 104, 23);
+		getContentPane().add(btnBuscar);
 	}
 
 	public void setCoordinador(Coordinador miCoordinador) {

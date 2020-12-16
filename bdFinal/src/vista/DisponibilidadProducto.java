@@ -14,9 +14,12 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.Coordinador;
 import java.awt.Color;
+import javax.swing.SpringLayout;
+import javax.swing.JTextField;
 
 public class DisponibilidadProducto extends JDialog {
 	private Coordinador miCoordinador;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -39,17 +42,20 @@ public class DisponibilidadProducto extends JDialog {
 	}
 	public void initComponents() {
 		getContentPane().setBackground(new Color(191, 205, 217));
-		getContentPane().setLayout(null);
+		SpringLayout springLayout = new SpringLayout();
+		getContentPane().setLayout(springLayout);
 		
 		JPanel barra = new JPanel();
-		barra.setBounds(0, 0, 519, 30);
+		springLayout.putConstraint(SpringLayout.NORTH, barra, 0, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, barra, 0, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, barra, 30, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, barra, 519, SpringLayout.WEST, getContentPane());
 		getContentPane().add(barra);
 		setUndecorated(true);
 		barra.setBackground(new Color(101, 118, 140));
 		setBounds(100, 100, 519, 396);
 		setLocationRelativeTo(null);
 		JLabel btnCerrar = new JLabel("");
-		btnCerrar.setBounds(489, 0, 30, 30);
 		btnCerrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -64,9 +70,39 @@ public class DisponibilidadProducto extends JDialog {
 				dispose();
 			}
 		});
-		barra.setLayout(null);
+		SpringLayout sl_barra = new SpringLayout();
+		sl_barra.putConstraint(SpringLayout.NORTH, btnCerrar, 0, SpringLayout.NORTH, barra);
+		sl_barra.putConstraint(SpringLayout.WEST, btnCerrar, 489, SpringLayout.WEST, barra);
+		barra.setLayout(sl_barra);
 		btnCerrar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/imagenes/cerrarColorPrincipal_30px.png")));
 		barra.add(btnCerrar);
+		
+		JButton btnNewButton = new JButton("New button");
+		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 135, SpringLayout.SOUTH, barra);
+		springLayout.putConstraint(SpringLayout.EAST, btnNewButton, -49, SpringLayout.EAST, getContentPane());
+		getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton_1, 225, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, btnNewButton_1, 127, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -148, SpringLayout.SOUTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnNewButton_1, -210, SpringLayout.EAST, getContentPane());
+		getContentPane().add(btnNewButton_1);
+		
+		textField = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textField, -50, SpringLayout.NORTH, btnNewButton);
+		springLayout.putConstraint(SpringLayout.WEST, textField, 144, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, textField, -27, SpringLayout.NORTH, btnNewButton);
+		springLayout.putConstraint(SpringLayout.EAST, textField, 0, SpringLayout.EAST, btnNewButton);
+		getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 109, SpringLayout.SOUTH, barra);
+		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 30, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel, -243, SpringLayout.SOUTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, 102, SpringLayout.WEST, getContentPane());
+		getContentPane().add(lblNewLabel);
 	}
 
 	public void setCoordinador(Coordinador miCoordinador) {

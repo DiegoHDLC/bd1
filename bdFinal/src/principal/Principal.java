@@ -5,7 +5,9 @@ import modelo.LogicaConsultas;
 import modelo.LogicaLogin;
 import modelo.LogicaPrincipal;
 import utils.Conexion;
+import vista.Deudores;
 import vista.DisponibilidadProducto;
+import vista.GestionarEmpresa;
 import vista.GestionarProductos;
 import vista.GestionarTrabajador;
 import vista.VentanaLogin;
@@ -24,8 +26,10 @@ public class Principal {
 		LogicaConsultas logicaConsultas = new LogicaConsultas();
 		DisponibilidadProducto ventDispProduct = new DisponibilidadProducto();
 		VentasRapidas ventasRapidas = new VentasRapidas();
-		GestionarTrabajador gestionarTrabajador = new GestionarTrabajador();
+		GestionarTrabajador gestionarTrabajador = new GestionarTrabajador(ventanaPrincipal, false);
 		GestionarProductos gestionarProductos = new GestionarProductos();
+		GestionarEmpresa gestionarEmpresa = new GestionarEmpresa();
+		Deudores deudores = new Deudores();
 		
 		
 		ventanaLogin.setCoordinador(miCoordinador);
@@ -38,6 +42,8 @@ public class Principal {
 		ventasRapidas.setCoordinador(miCoordinador);
 		gestionarTrabajador.setCoordinador(miCoordinador);
 		gestionarProductos.setCoordinador(miCoordinador);
+		gestionarEmpresa.setCoordinador(miCoordinador);
+		deudores.setCoordinador(miCoordinador);
 		
 		
 		miCoordinador.setVentanaLogin(ventanaLogin);
@@ -50,6 +56,8 @@ public class Principal {
 		miCoordinador.setVentasRapidas(ventasRapidas);
 		miCoordinador.setGestionarTrabajador(gestionarTrabajador);
 		miCoordinador.setGestionarProductos(gestionarProductos);
+		miCoordinador.setGestionarEmpresa(gestionarEmpresa);
+		miCoordinador.setDeudores(deudores);
 		
 		ventanaLogin.setVisible(true);
 
