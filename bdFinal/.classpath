@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/di_eg/Desktop/JARs BD/postgresql-42.2.18.jar"/>
+	<classpathentry kind="lib" path="C:/Users/di_eg/Desktop/JARs BD/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

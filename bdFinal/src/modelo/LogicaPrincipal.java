@@ -1,6 +1,7 @@
 package modelo;
 
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -8,6 +9,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import controlador.Coordinador;
 
@@ -117,6 +124,56 @@ public class LogicaPrincipal {
 		
 		
 		
+	}
+	public JTable crearTablaProductos(JScrollPane scrollPane, JTable tabla) {
+		Vector columnas = new Vector();
+		columnas.add("Código");
+		columnas.add("Descripcción");
+		columnas.add("Familia");
+		columnas.add("Stock");
+		columnas.add("Precio");
+
+		
+		Vector filas = new Vector();
+		Vector fila = new Vector();
+
+		//filas.add(fila);
+		tabla = new JTable(filas,columnas);
+
+		scrollPane.setViewportView(tabla);
+		return tabla;
+	}
+	public void agregarDatosATabla(String código, String descripción, String familia, String stock,
+			String precio_actual, JTable tabla) {
+		Object [] fila = new Object[7];
+		fila[0] = código;
+		fila[1] = descripción;
+		fila[2] = familia;
+		fila[3] = stock;
+		fila[4] = precio_actual;
+		 ((DefaultTableModel) tabla.getModel()).addRow(fila);
+		
+	}
+	
+	public static void crearGrafico(ArrayList<String> nombreProductos, ArrayList<Integer> cantidadProductos ) {
+		XYSeries oSeries = new XYSeries("");
+	   	
+   		for(int i = 0; i < tiempo.size()-1;i++) {
+   			oSeries.add(tamano.get(i),tiempo.get(i));
+   		}
+   	
+   		XYSeriesCollection oDataset = new XYSeriesCollection();
+   		
+   		oDataset.addSeries(oSeries);
+   		
+   		
+   		JFreeChart oChart = ChartFactory.createXYLineChart("HeapSort", "Productos", "Cantidad de productos", oDataset, PlotOrientation.VERTICAL, true, false, false);
+   		oChart.setBackgroundPaint(new Color(208, 121, 3));
+   		ChartPanel oPanel = new ChartPanel(oChart);
+   		
+   		panelGrafico.setLayout(new java.awt.BorderLayout());
+   		panelGrafico.add(oPanel);
+   		panelGrafico.validate();
 	}
 	
 }

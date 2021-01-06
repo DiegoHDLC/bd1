@@ -133,6 +133,27 @@ public class LogicaConsultas {
 		}
 		
 	}
+
+	public void mostrarTablaProductos(Connection cn, JTable tabla) {
+		try {
+			Statement stmt = cn.createStatement();
+			ResultSet rs = stmt.executeQuery( "SELECT código, descripción ,familia, stock, precio_actual\r\n"
+					+ "FROM producto  ;" );
+			while (rs.next()) {
+			       String código = rs.getString("código");
+			       String descripción = rs.getString("descripción");
+			       String familia  = rs.getString("familia");
+			       String stock = rs.getString("stock");
+			       String precio_actual = rs.getString("precio_actual");
+			       miCoordinador.agregarDatosATablaProducto(código,descripción,familia,stock,precio_actual,tabla);
+			       
+			    }
+			miCoordinador.cerrarConexion(stmt, rs, cn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 

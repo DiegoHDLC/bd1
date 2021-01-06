@@ -10,9 +10,11 @@ import vista.DisponibilidadProducto;
 import vista.GestionarEmpresa;
 import vista.GestionarProductos;
 import vista.GestionarTrabajador;
+import vista.Gráfico;
+import vista.VentanaListaProductos;
 import vista.VentanaLogin;
 import vista.VentanaPrincipal;
-import vista.VentasRapidas;
+import vista.VentanaPrincipal;
 
 public class Principal {
 
@@ -25,11 +27,13 @@ public class Principal {
 		Conexion conexion = new Conexion();
 		LogicaConsultas logicaConsultas = new LogicaConsultas();
 		DisponibilidadProducto ventDispProduct = new DisponibilidadProducto();
-		VentasRapidas ventasRapidas = new VentasRapidas();
+		VentanaPrincipal ventasRapidas = new VentanaPrincipal();
 		GestionarTrabajador gestionarTrabajador = new GestionarTrabajador(ventanaPrincipal, false);
 		GestionarProductos gestionarProductos = new GestionarProductos();
 		GestionarEmpresa gestionarEmpresa = new GestionarEmpresa();
 		Deudores deudores = new Deudores();
+		VentanaListaProductos listaProductos = new VentanaListaProductos();
+		Gráfico gráfico = new Gráfico();
 		
 		
 		ventanaLogin.setCoordinador(miCoordinador);
@@ -44,6 +48,8 @@ public class Principal {
 		gestionarProductos.setCoordinador(miCoordinador);
 		gestionarEmpresa.setCoordinador(miCoordinador);
 		deudores.setCoordinador(miCoordinador);
+		listaProductos.setCoordinador(miCoordinador);
+		gráfico.setCoordinador(miCoordinador);
 		
 		
 		miCoordinador.setVentanaLogin(ventanaLogin);
@@ -58,6 +64,8 @@ public class Principal {
 		miCoordinador.setGestionarProductos(gestionarProductos);
 		miCoordinador.setGestionarEmpresa(gestionarEmpresa);
 		miCoordinador.setDeudores(deudores);
+		miCoordinador.setListaProductos(listaProductos);
+		miCoordinador.setGráfico(gráfico);
 		
 		ventanaLogin.setVisible(true);
 

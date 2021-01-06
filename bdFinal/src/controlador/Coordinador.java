@@ -22,9 +22,11 @@ import vista.DisponibilidadProducto;
 import vista.GestionarEmpresa;
 import vista.GestionarProductos;
 import vista.GestionarTrabajador;
+import vista.Gráfico;
+import vista.VentanaListaProductos;
 import vista.VentanaLogin;
 import vista.VentanaPrincipal;
-import vista.VentasRapidas;
+import vista.VentanaPrincipal;
 
 public class Coordinador {
 	
@@ -35,11 +37,13 @@ public class Coordinador {
 	private Conexion conexion;
 	private LogicaConsultas logicaConsultas;
 	private DisponibilidadProducto ventDispProduct;
-	private VentasRapidas ventasRapidas;
+	private VentanaPrincipal ventasRapidas;
 	private GestionarTrabajador gestionarTrabajador;
 	private GestionarProductos gestionarProductos;
 	private GestionarEmpresa gestionarEmpresa;
 	private Deudores deudores;
+	private VentanaListaProductos listaProductos;
+	private Gráfico gráfico;
 	
 	public Coordinador() {
 		
@@ -142,7 +146,7 @@ public class Coordinador {
 		
 	}
 
-	public void setVentasRapidas(VentasRapidas ventasRapidas) {
+	public void setVentasRapidas(VentanaPrincipal ventasRapidas) {
 		this.ventasRapidas = ventasRapidas;
 		
 	}
@@ -219,6 +223,43 @@ public class Coordinador {
 	public void agregarProducto(JTextField textCódigo, JTextField textCódBarra, JTextField textDescripción, JTextField textFamilia, JTextField textPrecioActual, JTextField textStock) {
 		Connection cn = conexion.connectDatabase();
 		logicaConsultas.agregarProducto(cn, textCódigo, textCódBarra, textDescripción, textFamilia, textPrecioActual, textStock);
+		
+	}
+
+	public void setListaProductos(VentanaListaProductos listaProductos) {
+		this.listaProductos = listaProductos;
+		
+	}
+
+	public void AbrirVentanaListaProductos() {
+		listaProductos.setVisible(true);
+		
+	}
+
+	public JTable mostrarTablaProductos(JScrollPane scrollPane, JTable tabla) {
+		tabla = logicaPrincipal.crearTablaProductos(scrollPane, tabla);
+		return tabla;
+	}
+
+	public void mostrarTablaProductos(JTable tabla) {
+		Connection cn = conexion.connectDatabase();
+		logicaConsultas.mostrarTablaProductos(cn,tabla);
+		
+	}
+
+	public void agregarDatosATablaProducto(String código, String descripción, String familia, String stock,
+			String precio_actual, JTable tabla) {
+		logicaPrincipal.agregarDatosATabla(código,descripción,familia,stock,precio_actual,tabla);
+		
+	}
+
+	public void setGráfico(Gráfico gráfico) {
+		this.gráfico = gráfico;
+		
+	}
+
+	public void generarGráfico() {
+		gráfico.setVisible(true);
 		
 	}
 
