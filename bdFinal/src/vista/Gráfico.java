@@ -16,10 +16,11 @@ import controlador.Coordinador;
 import java.awt.Color;
 import javax.swing.SpringLayout;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Gráfico extends JDialog {
 	private Coordinador miCoordinador;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -42,18 +43,14 @@ public class Gráfico extends JDialog {
 	}
 	public void initComponents() {
 		getContentPane().setBackground(new Color(191, 205, 217));
-		SpringLayout springLayout = new SpringLayout();
-		getContentPane().setLayout(springLayout);
+		getContentPane().setLayout(null);
 		
 		JPanel barra = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, barra, 0, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, barra, 0, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, barra, 30, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, barra, 519, SpringLayout.WEST, getContentPane());
+		barra.setBounds(0, 0, 1054, 30);
 		getContentPane().add(barra);
 		setUndecorated(true);
 		barra.setBackground(new Color(101, 118, 140));
-		setBounds(100, 100, 519, 396);
+		setBounds(100, 100, 1054, 623);
 		setLocationRelativeTo(null);
 		JLabel btnCerrar = new JLabel("");
 		btnCerrar.addMouseListener(new MouseAdapter() {
@@ -72,37 +69,25 @@ public class Gráfico extends JDialog {
 		});
 		SpringLayout sl_barra = new SpringLayout();
 		sl_barra.putConstraint(SpringLayout.NORTH, btnCerrar, 0, SpringLayout.NORTH, barra);
-		sl_barra.putConstraint(SpringLayout.WEST, btnCerrar, 489, SpringLayout.WEST, barra);
+		sl_barra.putConstraint(SpringLayout.EAST, btnCerrar, 0, SpringLayout.EAST, barra);
 		barra.setLayout(sl_barra);
 		btnCerrar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/imagenes/cerrarColorPrincipal_30px.png")));
 		barra.add(btnCerrar);
 		
-		JButton btnNewButton = new JButton("New button");
-		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 135, SpringLayout.SOUTH, barra);
-		springLayout.putConstraint(SpringLayout.EAST, btnNewButton, -49, SpringLayout.EAST, getContentPane());
-		getContentPane().add(btnNewButton);
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 75, 1034, 537);
+		getContentPane().add(panel);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton_1, 225, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, btnNewButton_1, 127, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -148, SpringLayout.SOUTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnNewButton_1, -210, SpringLayout.EAST, getContentPane());
-		getContentPane().add(btnNewButton_1);
+		JButton btnConsulta = new JButton("Consultar");
+		btnConsulta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				miCoordinador.generarGráfico(panel);
+			}
+		});
+		btnConsulta.setBounds(955, 41, 89, 23);
+		getContentPane().add(btnConsulta);
 		
-		textField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField, -50, SpringLayout.NORTH, btnNewButton);
-		springLayout.putConstraint(SpringLayout.WEST, textField, 144, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, textField, -27, SpringLayout.NORTH, btnNewButton);
-		springLayout.putConstraint(SpringLayout.EAST, textField, 0, SpringLayout.EAST, btnNewButton);
-		getContentPane().add(textField);
-		textField.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 109, SpringLayout.SOUTH, barra);
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 30, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel, -243, SpringLayout.SOUTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, 102, SpringLayout.WEST, getContentPane());
-		getContentPane().add(lblNewLabel);
 	}
 
 	public void setCoordinador(Coordinador miCoordinador) {

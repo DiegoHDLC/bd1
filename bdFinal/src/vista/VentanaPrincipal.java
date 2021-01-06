@@ -198,7 +198,7 @@ public class VentanaPrincipal extends JFrame {
 		JButton btnGráfico = new JButton("Gr\u00E1fico");
 		btnGráfico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				miCoordinador.generarGráfico();
+				miCoordinador.mostrarGráfico();
 			}
 		});
 		btnGráfico.setBounds(592, 0, 89, 36);

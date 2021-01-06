@@ -1,7 +1,9 @@
 package modelo;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -11,8 +13,11 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -65,7 +70,7 @@ public class LogicaPrincipal {
 		
 	}
 	public JTable crearTablaDisponibilidadProducto(JScrollPane scrollPane, JTable tabla) {
-		Vector columnas = new Vector();
+		Vector<String> columnas = new Vector<String>();
 		columnas.add("Código");
 		columnas.add("Descripción");
 		columnas.add("Stock");
@@ -93,7 +98,7 @@ public class LogicaPrincipal {
 		
 	}
 	public JTable crearTablaDeudores(JScrollPane scrollPane, JTable tabla) {
-		Vector columnas = new Vector();
+		Vector<String> columnas = new Vector<String>();
 		columnas.add("Estado");
 		columnas.add("Documento");
 		columnas.add("Monto Total");
@@ -126,7 +131,7 @@ public class LogicaPrincipal {
 		
 	}
 	public JTable crearTablaProductos(JScrollPane scrollPane, JTable tabla) {
-		Vector columnas = new Vector();
+		Vector<String> columnas = new Vector<String>();
 		columnas.add("Código");
 		columnas.add("Descripcción");
 		columnas.add("Familia");
@@ -155,25 +160,32 @@ public class LogicaPrincipal {
 		
 	}
 	
-	public static void crearGrafico(ArrayList<String> nombreProductos, ArrayList<Integer> cantidadProductos ) {
-		XYSeries oSeries = new XYSeries("");
+	public static void crearGrafico(ArrayList<String> nP, ArrayList<Integer> cP, JPanel panelGráfico ) {
+		//XYSeries oSeries = new XYSeries("");
 	   	
-   		for(int i = 0; i < tiempo.size()-1;i++) {
-   			oSeries.add(tamano.get(i),tiempo.get(i));
-   		}
+   		
    	
-   		XYSeriesCollection oDataset = new XYSeriesCollection();
+   		//XYSeriesCollection oDataset = new XYSeriesCollection();
    		
-   		oDataset.addSeries(oSeries);
+   		//oDataset.addSeries(oSeries);
    		
    		
-   		JFreeChart oChart = ChartFactory.createXYLineChart("HeapSort", "Productos", "Cantidad de productos", oDataset, PlotOrientation.VERTICAL, true, false, false);
-   		oChart.setBackgroundPaint(new Color(208, 121, 3));
+   		JFreeChart oChart = ChartFactory.createBarChart("Ventas diarias", "Productos", "Cantidad de productos", crearDataSet(nP, cP), PlotOrientation.VERTICAL, true, true, false);
+   		oChart.setBackgroundPaint(new Color(101, 118, 140));
    		ChartPanel oPanel = new ChartPanel(oChart);
    		
-   		panelGrafico.setLayout(new java.awt.BorderLayout());
-   		panelGrafico.add(oPanel);
-   		panelGrafico.validate();
+   		panelGráfico.setLayout(new java.awt.BorderLayout());
+   		panelGráfico.add(oPanel);
+   		panelGráfico.validate();
+	}
+	private static CategoryDataset crearDataSet(ArrayList<String> nombreProductos, ArrayList<Integer> cantidadProductos) {
+		final DefaultCategoryDataset dataset = 
+			      new DefaultCategoryDataset( ); 
+		
+		for(int i = 0; i < nombreProductos.size()-1;i++) {
+   			dataset.addValue(cantidadProductos.get(i), cantidadProductos.get(i),nombreProductos.get(i));
+   		}
+		return dataset;
 	}
 	
 }

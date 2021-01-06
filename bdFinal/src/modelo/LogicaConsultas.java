@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -13,6 +14,7 @@ import controlador.Coordinador;
 
 public class LogicaConsultas {
 	private Coordinador miCoordinador;
+	ArrayList<Object> lista;
 
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador = miCoordinador;
@@ -152,6 +154,50 @@ public class LogicaConsultas {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	public ArrayList<Object> obtenerProductos(Connection cn) {
+		try {
+			ArrayList<Object> lista = new ArrayList<Object>();
+			ArrayList<String> listaCódigo = new ArrayList<String>();
+			ArrayList<Integer> listaCantidad = new ArrayList<Integer>();
+			
+			/*
+			select datos.cod,sum(datos.cantidad)
+from ((select Boleta.fecha_boleta as fecha, Boleta.doc_bt as doc, detalle_ventabt.código as cod,  		detalle_ventabt.cantidad_vendida as cantidad
+	from detalle_ventabt,boleta
+	where detalle_ventabt.doc_bt=boleta.doc_bt ) union (select factura.fecha_factura as fecha, factura.doc_fac as doc, detalle_ventafc.código as cod, detalle_ventafc.cantidad_vendida as cantidad
+	from detalle_ventafc,factura
+	where detalle_ventafc.doc_fc=factura.doc_fac ))as datos
+where datos.fecha = '20200101' 
+group by datos.cod;
+	*/
+			Statement stmt = cn.createStatement();
+			ResultSet rs = stmt.executeQuery( "select datos.cod,sum(datos.cantidad)\r\n"
+					+ "from ((select Boleta.fecha_boleta as fecha, Boleta.doc_bt as doc, detalle_ventabt.código as cod,  		detalle_ventabt.cantidad_vendida as cantidad\r\n"
+					+ "	from detalle_ventabt,boleta\r\n"
+					+ "	where detalle_ventabt.doc_bt=boleta.doc_bt ) union (select factura.fecha_factura as fecha, factura.doc_fac as doc, detalle_ventafc.código as cod, detalle_ventafc.cantidad_vendida as cantidad\r\n"
+					+ "	from detalle_ventafc,factura\r\n"
+					+ "	where detalle_ventafc.doc_fc=factura.doc_fac ))as datos\r\n"
+					+ "where datos.fecha = '20200101' \r\n"
+					+ "group by datos.cod;" );
+			while (rs.next()) {
+			       String código = rs.getString("cod");
+			       listaCódigo.add(código);
+			       int cantidad = rs.getInt("sum");
+			       listaCantidad.add(cantidad);
+			       
+			}
+			lista.add(listaCódigo);
+			lista.add(listaCantidad);
+			miCoordinador.cerrarConexion(stmt, rs, cn);
+			return lista;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lista;
+		
 		
 	}
 	

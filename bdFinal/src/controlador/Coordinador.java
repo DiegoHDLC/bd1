@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -258,8 +259,18 @@ public class Coordinador {
 		
 	}
 
-	public void generarGráfico() {
+	public void mostrarGráfico() {
 		gráfico.setVisible(true);
+		
+	}
+
+	public void generarGráfico(JPanel panel) {
+		ArrayList<Object> lista = new ArrayList<Object>();
+		Connection cn = conexion.connectDatabase();
+		lista = logicaConsultas.obtenerProductos(cn);
+		ArrayList<String> códigoProductos = (ArrayList<String>) lista.get(0);
+		ArrayList<Integer> cantidadProductos = (ArrayList<Integer>) lista.get(1);
+		logicaPrincipal.crearGrafico(códigoProductos, cantidadProductos, panel);
 		
 	}
 
