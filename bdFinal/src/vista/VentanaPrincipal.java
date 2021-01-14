@@ -60,7 +60,6 @@ public class VentanaPrincipal extends JFrame {
 	JMenu menuSucursal;
 	JMenu menuProveedor;
 	JMenu menuEmpresas;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -125,11 +124,6 @@ public class VentanaPrincipal extends JFrame {
 		btnGuardarVenta.setBounds(84, 202, 89, 36);
 		getContentPane().add(btnGuardarVenta);
 		
-		JButton btnCerrar_1 = new JButton("Cerrar");
-		btnCerrar_1.setFont(new Font("Century Gothic", Font.PLAIN, 11));
-		btnCerrar_1.setBounds(866, 228, 89, 36);
-		getContentPane().add(btnCerrar_1);
-		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(84, 99, 148, 22);
 		getContentPane().add(comboBox);
@@ -179,11 +173,6 @@ public class VentanaPrincipal extends JFrame {
 		lblDetalleVenta.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		panelDetalleVenta.add(lblDetalleVenta);
 		
-		textField = new JTextField();
-		textField.setBounds(406, 0, 86, 36);
-		panelDetalleVenta.add(textField);
-		textField.setColumns(10);
-		
 		JLabel lblBuscar = new JLabel("");
 		lblBuscar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -192,17 +181,29 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		lblBuscar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/imagenes/icons8_search_30px_1.png")));
-		lblBuscar.setBounds(502, 0, 30, 34);
+		lblBuscar.setBounds(661, 0, 30, 34);
 		panelDetalleVenta.add(lblBuscar);
 		
-		JButton btnGráfico = new JButton("Gr\u00E1fico");
+		JButton btnGráfico = new JButton("Ver");
+		btnGráfico.setBackground(new Color(191, 205, 217));
+		btnGráfico.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		btnGráfico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				miCoordinador.mostrarGráfico();
 			}
 		});
-		btnGráfico.setBounds(592, 0, 89, 36);
+		btnGráfico.setBounds(866, 1, 89, 33);
 		panelDetalleVenta.add(btnGráfico);
+		
+		JLabel lblVentasDiarias = new JLabel("Ventas diarias:");
+		lblVentasDiarias.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		lblVentasDiarias.setBounds(754, 2, 102, 34);
+		panelDetalleVenta.add(lblVentasDiarias);
+		
+		JLabel lblBuscarProducto = new JLabel("Buscar producto: ");
+		lblBuscarProducto.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		lblBuscarProducto.setBounds(534, 2, 130, 34);
+		panelDetalleVenta.add(lblBuscarProducto);
 		
 		JLabel lblRUT = new JLabel("RUT");
 		lblRUT.setFont(new Font("Century Gothic", Font.PLAIN, 11));
@@ -221,7 +222,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		textFieldVendedor = new JTextField();
 		textFieldVendedor.setColumns(10);
-		textFieldVendedor.setBounds(670, 99, 285, 22);
+		textFieldVendedor.setBounds(670, 99, 164, 22);
 		getContentPane().add(textFieldVendedor);
 		
 		textFieldNombre = new JTextField();
@@ -278,7 +279,7 @@ public class VentanaPrincipal extends JFrame {
 		//TRABAJADOR
 		menuTrabajadores = agregarMenu(menuTrabajadores, "Trabajadores");
 		//SUCURSAL
-		menuSucursal = agregarMenu(menuSucursal, "Sucursal");
+		
 		//PROVEEDORES
 		menuProveedor = agregarMenu(menuProveedor, "Proveedores");
 		//EMPRESAS
@@ -290,45 +291,33 @@ public class VentanaPrincipal extends JFrame {
 		itemEliminarTrabajador = agregarItem(itemEliminarTrabajador,"Eliminar Trabajador");
 		itemGestionarTrabajador = agregarItem(itemGestionarTrabajador,"Gestionar");
 		//ITEMS PRODUCTOS
-		itemDisponibilidad = agregarItem(itemDisponibilidad,"Disponibilidad");
+		
 		itemGestionarProductos = agregarItem(itemGestionarProductos, "Gestionar");
 		//ITEMS SUCURSAL
-		itemIngresarSucursal = agregarItem(itemIngresarSucursal,"Ingresar Sucursal");
-		itemActualizarSucursal = agregarItem(itemActualizarSucursal,"Actualizar Sucursal");
-		itemEliminarSucursal = agregarItem(itemEliminarSucursal,"Eliminar Sucursal");
+		
 		//ITEMS EMPRESAS
 		itemDeudores = agregarItem(itemDeudores,"Deudores");
-		itemActualizarEmpresa = agregarItem(itemActualizarEmpresa,"Actualizar Empresa");
-		itemEliminarEmpresa = agregarItem(itemEliminarEmpresa,"Eliminar Empresa");
+		
+		
 		itemGestionarEmpresa = agregarItem(itemGestionarEmpresa,"Gestionar");
 	
 		
-		menuProducto.add(itemDisponibilidad);
-		menuTrabajadores.add(itemIngresarTrabajador);
-		menuTrabajadores.add(itemActualizarTrabajador);
-		menuTrabajadores.add(itemEliminarTrabajador);
+		
+		
 		menuTrabajadores.add(itemGestionarTrabajador);
-		menuSucursal.add(itemIngresarSucursal);
-		menuSucursal.add(itemActualizarSucursal);
-		menuSucursal.add(itemEliminarSucursal);
+		
 		menuEmpresas.add(itemDeudores);
-		menuEmpresas.add(itemActualizarEmpresa);
-		menuEmpresas.add(itemEliminarEmpresa);
+		
 		menuEmpresas.add(itemGestionarEmpresa);
 		menuProducto.add(itemGestionarProductos);
 		barraMenu.add(menuProducto);
 		barraMenu.add(menuTrabajadores);
 		barraMenu.add(menuProveedor);
-		barraMenu.add(menuSucursal);
+		
 		barraMenu.add(menuEmpresas);
 		
 		
-		itemDisponibilidad.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				miCoordinador.abrirVentanaDispProduct();
-			}
-		});
+	
 		
 		
 		itemGestionarTrabajador.addActionListener(new ActionListener() {

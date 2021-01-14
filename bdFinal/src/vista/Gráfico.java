@@ -18,6 +18,7 @@ import javax.swing.SpringLayout;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class Gráfico extends JDialog {
 	private Coordinador miCoordinador;
@@ -79,12 +80,14 @@ public class Gráfico extends JDialog {
 		getContentPane().add(panel);
 		
 		JButton btnConsulta = new JButton("Consultar");
+		btnConsulta.setBackground(new Color(191, 205, 217));
+		btnConsulta.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		btnConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				miCoordinador.generarGráfico(panel);
 			}
 		});
-		btnConsulta.setBounds(955, 41, 89, 23);
+		btnConsulta.setBounds(926, 41, 118, 23);
 		getContentPane().add(btnConsulta);
 		
 		
