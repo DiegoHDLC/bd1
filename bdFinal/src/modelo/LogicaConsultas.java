@@ -81,6 +81,7 @@ public class LogicaConsultas {
 		}
 		
 	}
+	
 
 	public void buscarProducto(Connection cn, String cod, JTextField textCódBarra, JTextField textDecripción, JTextField textFamilia, JTextField textPrecioActual, JTextField textStock) {
 		try {
@@ -170,7 +171,7 @@ from ((select Boleta.fecha_boleta as fecha, Boleta.doc_bt as doc, detalle_ventab
 	where detalle_ventabt.doc_bt=boleta.doc_bt ) union (select factura.fecha_factura as fecha, factura.doc_fac as doc, detalle_ventafc.código as cod, detalle_ventafc.cantidad_vendida as cantidad
 	from detalle_ventafc,factura
 	where detalle_ventafc.doc_fc=factura.doc_fac ))as datos
-where datos.fecha = '20200101' 
+where datos.fecha = '20200102' 
 group by datos.cod;
 	*/
 			Statement stmt = cn.createStatement();
@@ -180,7 +181,7 @@ group by datos.cod;
 					+ "	where detalle_ventabt.doc_bt=boleta.doc_bt ) union (select factura.fecha_factura as fecha, factura.doc_fac as doc, detalle_ventafc.código as cod, detalle_ventafc.cantidad_vendida as cantidad\r\n"
 					+ "	from detalle_ventafc,factura\r\n"
 					+ "	where detalle_ventafc.doc_fc=factura.doc_fac ))as datos\r\n"
-					+ "where datos.fecha = '20200101' \r\n"
+					+ "where datos.fecha = '20200102' \r\n"
 					+ "group by datos.cod;" );
 			while (rs.next()) {
 			       String código = rs.getString("cod");

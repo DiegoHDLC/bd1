@@ -20,14 +20,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URISyntaxException;
+import java.text.ParseException;
+
 import javax.swing.SwingConstants;
 import javax.swing.ListSelectionModel;
 
 public class VentanaListaProductos extends JDialog {
 
 	Coordinador miCoordinador;
-	private JTable tabla;
+	private static JTable tabla;
 	private JTextField textfContador;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -56,27 +60,33 @@ public class VentanaListaProductos extends JDialog {
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(new Color(101, 118, 140));
 		
+		
+		textField = new JTextField();
+		textField.setBounds(410, 43, 128, 50);
+		getContentPane().add(textField);
+		textField.setColumns(10);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int fila = tabla.getSelectedRow();
+				/*int columna = tabla.getSelectedColumn();
+				String valor = String.valueOf(tabla.getValueAt(fila, columna));
+				System.out.println("valor: "+String.valueOf(valor));*/
 				System.out.println("fila: "+fila);
 			}
 		});
 		scrollPane.setBounds(10, 151, 748, 274);
 		getContentPane().add(scrollPane);
 		
-		tabla = new JTable();
-
-		 
-		tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane.setViewportView(tabla);
+		
 		
 		JLabel lblAgregar = new JLabel("");
 		lblAgregar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				System.out.print("hola");
 				//int stockAux = 
 				//int stockOriginal = 
 				int fila = tabla.getSelectedRow();
@@ -90,6 +100,28 @@ public class VentanaListaProductos extends JDialog {
 		lblAgregar.setIcon(new ImageIcon(VentanaListaProductos.class.getResource("/imagenes/icons8_add_new_50px_1.png")));
 		lblAgregar.setBounds(10, 25, 50, 50);
 		getContentPane().add(lblAgregar);
+		
+		tabla = new JTable();
+
+		 
+		//tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(tabla);
+		
+		
+		tabla.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				
+				int columna = tabla.columnAtPoint(evt.getPoint());
+				
+	
+				int fila= tabla.rowAtPoint(evt.getPoint());
+				System.out.println("valor: "+fila);
+				String valor = String.valueOf(tabla.getValueAt(fila, columna));
+				textField.setText(tabla.getValueAt(fila, 0).toString());
+				System.out.println("valor: "+String.valueOf(valor));
+				
+			}});
 		
 		JLabel lblAgregar_1 = new JLabel("");
 		lblAgregar_1.addMouseListener(new MouseAdapter() {
@@ -141,6 +173,8 @@ public class VentanaListaProductos extends JDialog {
 		btnMostrarLista.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnMostrarLista.setBounds(10, 86, 352, 50);
 		getContentPane().add(btnMostrarLista);
+		
+		
 	
 		
 	}
@@ -148,5 +182,16 @@ public class VentanaListaProductos extends JDialog {
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador = miCoordinador;
 		
+	}
+	
+	private void tablaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {
+		int columna = tabla.columnAtPoint(evt.getPoint());
+		
+		
+		int fila= tabla.rowAtPoint(evt.getPoint());
+		System.out.println("valor: "+fila);
+		String valor = String.valueOf(tabla.getValueAt(fila, columna));
+		textField.setText(tabla.getValueAt(fila, 0).toString());
+		System.out.println("valor: "+String.valueOf(valor));
 	}
 }
