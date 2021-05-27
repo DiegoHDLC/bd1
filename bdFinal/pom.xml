@@ -4,6 +4,18 @@
   <artifactId>bdFinal</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
+  
+  <dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20210307</version>
+</dependency>
+  	<dependency>
+  	<groupId>org.json</groupId>
+  	<artifactId>json</artifactId>
+  	<version>20180130</version>
+  	<type>jar</type>
+  	</dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-sync</artifactId>

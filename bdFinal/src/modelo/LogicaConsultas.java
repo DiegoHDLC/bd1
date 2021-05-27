@@ -28,6 +28,8 @@ import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.*;
 import controlador.Coordinador;
+import netscape.javascript.JSObject;
+
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Accumulators.push;
 import static com.mongodb.client.model.Accumulators.sum;
@@ -108,6 +110,22 @@ public class LogicaConsultas {
 		System.out.print("entra");
 		Bson match = match(eq("Estado", "impaga"));
 		List<Document> results = collection.aggregate(Arrays.asList(match)).into(new ArrayList<>());
+		for (Document res : results) {
+			String estado = res.get("Estado").toString();
+			String doc_fac = res.get("Doc").toString();
+			String monto_total = res.get("Total").toString();
+			String correo_emp = "correo@correo.cl";
+			String teléfono_emp = "934343565";
+			System.out.println(res.get("Total"));
+			Document proveedor = (Document) res.get("Proveedor");
+			String rut_trabajador = proveedor.get("Rut").toString();
+			String nombre = proveedor.get("Nombre").toString();
+			miCoordinador.agregarDatosATabla(estado,doc_fac,monto_total,correo_emp,teléfono_emp,rut_trabajador,nombre,tabla);
+		}
+		
+		
+		Consumer<Document> doc = printDocuments();
+		//JSObject json = new JSONObject
 		results.forEach(printDocuments());
 		
 		
@@ -147,7 +165,7 @@ public class LogicaConsultas {
 	}
 	
 	 private static Consumer<Document> printDocuments() {
-	        return doc -> System.out.println(doc.toJson(JsonWriterSettings.builder().indent(true).build()));
+	        return doc -> doc.toJson(JsonWriterSettings.builder().indent(true).build());
 	    }
 	
 
