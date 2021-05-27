@@ -1,16 +1,40 @@
 package modelo;
 
+import java.awt.Cursor;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.bson.json.JsonWriterSettings;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Filters;
+import com.mongodb.*;
 import controlador.Coordinador;
+import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Accumulators.push;
+import static com.mongodb.client.model.Accumulators.sum;
+import static com.mongodb.client.model.Aggregates.*;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Projections.*;
+import static com.mongodb.client.model.Sorts.descending;
 
 public class LogicaConsultas {
 	private Coordinador miCoordinador;
@@ -21,9 +45,11 @@ public class LogicaConsultas {
 		
 	}
 
-	public void mostrarTablaTrabajador(Connection conexion, JTable tabla) {
-		 try {
-			Statement stmt = conexion.createStatement();
+	public void mostrarTablaTrabajador(MongoDatabase cn, JTable tabla) {
+		
+		/*
+		try {
+			Statement stmt = cn.createStatement();
 			ResultSet rs = stmt.executeQuery( "SELECT * FROM Trabajador;" );
 			while (rs.next()) {
 			       String rut = rs.getString(1);
@@ -33,15 +59,33 @@ public class LogicaConsultas {
 			    
 			       miCoordinador.agregarDatosATabla(nombre,rut,teléfono,correo, tabla);
 			    }
-			miCoordinador.cerrarConexion(stmt, rs, conexion);
+			miCoordinador.cerrarConexion(stmt, rs, cn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 
-	public void disponibilidadProductoYValor(Connection conexion, JTable tabla, String producto) {
-		 try {
-				Statement stmt = conexion.createStatement();
+	public void disponibilidadProductoYValor(MongoDatabase db, JTable tabla, String producto) {
+		var coleccion = db.getCollection(producto);
+		db.getCollection(producto).aggregate(null);
+		/*
+		db.producto.aggregate([
+		               		{ $match: producto.código: ‘KML60092RS’}},
+		               		{
+		               		$group: {	
+		               código: “$código”,
+		                  		descripción: “$descripción”
+		               		precio_actual: “$precio_actual”
+		               }
+		                     }
+		               ]);
+*/
+	
+		/*
+		 
+		try {
+				Statement stmt = db.createStatement();
 				ResultSet rs = stmt.executeQuery( "SELECT código, descripción, stock, precio_actual FROM producto WHERE producto.código= '"+producto+"';" );
 				while (rs.next()) {
 				       String código = rs.getString("código");
@@ -51,15 +95,35 @@ public class LogicaConsultas {
 				       	
 				       miCoordinador.agregarDatosATabla(código,descripción,stock,precioActual,tabla);
 				    }
-				miCoordinador.cerrarConexion(stmt, rs, conexion);
+				miCoordinador.cerrarConexion(stmt, rs, db);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		
+		*/
 	}
 
-	public void buscarDeudores(Connection cn, JTable tabla) {
-		try {
+	public void buscarDeudores(MongoDatabase db, JTable tabla) throws UnknownHostException, MongoException {
+		MongoCollection<Document> collection = db.getCollection("documento_compra");
+		
+		System.out.print("entra");
+		Bson match = match(eq("Estado", "impaga"));
+		List<Document> results = collection.aggregate(Arrays.asList(match)).into(new ArrayList<>());
+		results.forEach(printDocuments());
+		
+		
+		/*
+		db.factura.aggregate([
+		              		{ $match: estado: ‘impaga’}},
+		              		{
+		              		$group: {
+		              			_id:”rut_empresa”,
+		                 		deuda_total: { $sum: “monto_total” }
+		              }
+		                    }
+		              ])
+		              */
+
+		/*try {
 			Statement stmt = cn.createStatement();
 			ResultSet rs = stmt.executeQuery( "SELECT estado, doc_fac ,monto_total, correo_emp, teléfono_emp, rut_trabajador, nombre\r\n"
 					+ "FROM factura , empresa, trabajador , venta_fc \r\n"
@@ -79,8 +143,12 @@ public class LogicaConsultas {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		*/
 	}
+	
+	 private static Consumer<Document> printDocuments() {
+	        return doc -> System.out.println(doc.toJson(JsonWriterSettings.builder().indent(true).build()));
+	    }
 	
 
 	public void buscarProducto(Connection cn, String cod, JTextField textCódBarra, JTextField textDecripción, JTextField textFamilia, JTextField textPrecioActual, JTextField textStock) {

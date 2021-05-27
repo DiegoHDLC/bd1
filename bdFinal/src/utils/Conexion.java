@@ -6,12 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
+
 import controlador.Coordinador;
 
 public class Conexion {
 	@SuppressWarnings("unused")
 	private Coordinador miCoordinador;
-	public Connection connectDatabase() {
+	public MongoDatabase connectDatabase() {
+		try {
+		MongoClient mongoClient = MongoClients.create("mongodb+srv://dherrera:dherrera123@cluster0.hjcq9.mongodb.net/Repuestos?retryWrites=true&w=majority");
+        MongoDatabase database = mongoClient.getDatabase("Repuestos");
+
+        //database.createCollection("java4");
+        return database;
+		}catch(Error e){
+			
+		}
+
+		/*
 		try {
 		    Class.forName("org.postgresql.Driver");
 		    Connection conexion = DriverManager.getConnection("jdbc:postgresql://10.4.3.195:5432/repuestos",
@@ -22,6 +37,8 @@ public class Conexion {
 		 } catch ( Exception e ) {
 		    System.err.println( e.getClass().getName()+": "+ e.getMessage() );
 		 }
+		
+		*/
 		return null;
 	}
 	

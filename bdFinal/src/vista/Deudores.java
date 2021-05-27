@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.UnknownHostException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,6 +12,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.mongodb.MongoException;
 
 import controlador.Coordinador;
 import java.awt.Color;
@@ -100,7 +103,12 @@ public class Deudores extends JDialog {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tabla = miCoordinador.crearTablaDeudores(scrollPane,tabla);
-				miCoordinador.buscarDeudores(tabla);
+				try {
+					miCoordinador.buscarDeudores(tabla);
+				} catch (UnknownHostException | MongoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		btnBuscar.setFont(new Font("Century Gothic", Font.PLAIN, 13));

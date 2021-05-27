@@ -1,5 +1,6 @@
 package controlador;
 
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoDatabase;
 
 import modelo.LogicaConsultas;
 import modelo.LogicaLogin;
@@ -101,7 +105,7 @@ public class Coordinador {
 	}
 
 	public void mostrarTablaTrabajador(JTable tabla) {
-		Connection cn = conexion.connectDatabase();
+		MongoDatabase cn = conexion.connectDatabase();
 		//tabla = logicaPrincipal.definirColumnas(tabla);
 		logicaConsultas.mostrarTablaTrabajador(cn, tabla);
 	}
@@ -116,8 +120,10 @@ public class Coordinador {
 		
 	}
 	public void disponibilidadProductoYValor(JTable tabla, String producto) {
-		Connection cn = conexion.connectDatabase();
-		logicaConsultas.disponibilidadProductoYValor(cn, tabla, producto);
+		
+		MongoDatabase db = conexion.connectDatabase();
+		
+		logicaConsultas.disponibilidadProductoYValor(db, tabla, producto);
 		
 	}
 
@@ -191,9 +197,9 @@ public class Coordinador {
 		deudores.setVisible(true);
 	}
 
-	public void buscarDeudores(JTable tabla) {
-		Connection cn = conexion.connectDatabase();
-		logicaConsultas.buscarDeudores(cn,tabla);
+	public void buscarDeudores(JTable tabla) throws UnknownHostException, MongoException {
+		MongoDatabase db = conexion.connectDatabase();
+		logicaConsultas.buscarDeudores(db,tabla);
 	}
 
 	public void agregarDatosATabla(String estado, String doc_fac, String monto_total, String correo_emp,
@@ -210,8 +216,8 @@ public class Coordinador {
 
 	public void buscarProducto(String código, JTextField textCódigo, JTextField textCódBarra, JTextField textDecripción,
 			JTextField textFamilia, JTextField textPrecioActual, JTextField textStock) {
-		Connection cn = conexion.connectDatabase();
-		logicaConsultas.buscarProducto(cn, código, textCódBarra, textDecripción, textFamilia, textPrecioActual, textStock);
+		//Connection cn = conexion.connectDatabase();
+		//logicaConsultas.buscarProducto(cn, código, textCódBarra, textDecripción, textFamilia, textPrecioActual, textStock);
 	}
 
 	public void agregarDatosProductoBuscado(String código_barra, String stock, String descripción, String precio_actual,
@@ -222,8 +228,8 @@ public class Coordinador {
 	}
 
 	public void agregarProducto(JTextField textCódigo, JTextField textCódBarra, JTextField textDescripción, JTextField textFamilia, JTextField textPrecioActual, JTextField textStock) {
-		Connection cn = conexion.connectDatabase();
-		logicaConsultas.agregarProducto(cn, textCódigo, textCódBarra, textDescripción, textFamilia, textPrecioActual, textStock);
+		//Connection cn = conexion.connectDatabase();
+		//logicaConsultas.agregarProducto(cn, textCódigo, textCódBarra, textDescripción, textFamilia, textPrecioActual, textStock);
 		
 	}
 
@@ -243,14 +249,14 @@ public class Coordinador {
 	}
 
 	public void mostrarTablaProductos(JTable tabla) {
-		Connection cn = conexion.connectDatabase();
-		logicaConsultas.mostrarTablaProductos(cn,tabla);
+		//Connection cn = conexion.connectDatabase();
+		//logicaConsultas.mostrarTablaProductos(cn,tabla);
 		
 	}
 
 	public void agregarDatosATablaProducto(String código, String descripción, String familia, String stock,
 			String precio_actual, JTable tabla) {
-		logicaPrincipal.agregarDatosATabla(código,descripción,familia,stock,precio_actual,tabla);
+		//logicaPrincipal.agregarDatosATabla(código,descripción,familia,stock,precio_actual,tabla);
 		
 	}
 
@@ -266,8 +272,8 @@ public class Coordinador {
 
 	public void generarGráfico(JPanel panel) {
 		ArrayList<Object> lista = new ArrayList<Object>();
-		Connection cn = conexion.connectDatabase();
-		lista = logicaConsultas.obtenerProductos(cn);
+		//Connection cn = conexion.connectDatabase();
+		//lista = logicaConsultas.obtenerProductos(cn);
 		ArrayList<String> códigoProductos = (ArrayList<String>) lista.get(0);
 		ArrayList<Integer> cantidadProductos = (ArrayList<Integer>) lista.get(1);
 		logicaPrincipal.crearGrafico(códigoProductos, cantidadProductos, panel);
